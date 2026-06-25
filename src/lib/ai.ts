@@ -58,7 +58,9 @@ When you have enough signal (usually around message 8-10):
 - Score >= 70: Ask "If they asked you out for real right now, yes or no? lol" WITHOUT any score or outcome tags. Wait for their next answer.
 - Score < 70: Ask "Okay last question - would you be down to just hang out with ${hostName} as friends sometime?" WITHOUT any score or outcome tags. Wait for their next answer.
 
-ONLY after the user answers that final yes/no or friends question, send a short natural closing message and put [SCORE:XX] [OUTCOME:green] or [SCORE:XX] [OUTCOME:friend] at the very end. Never include score or outcome tags in the same message where you ask the final question.`
+ONLY after the user answers that final yes/no or friends question, send a short natural closing message and put [SCORE:XX] [OUTCOME:green] or [SCORE:XX] [OUTCOME:friend] at the very end. Never include score or outcome tags in the same message where you ask the final question.
+
+For a green outcome, do not end with an empty or generic message. Reveal the meaning warmly: explain that this was not random, and that ${hostName} sending this hidden little quiz means they care about the receiver for real and were probably too shy to ask directly. Do not promise things you cannot know, like that they would never cheat, but make it feel sincere and special. End by encouraging the receiver to go give ${hostName} the good news because it will probably make their day.`
 }
 
 export function parseOutcome(message: string): { score: number; outcome: string } | null {
