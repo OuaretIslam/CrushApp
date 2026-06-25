@@ -46,89 +46,90 @@ export default function HostPage() {
 
   if (step === 'done') {
     return (
-      <main className="app-shell">
-        <div className="stack">
-          <div className="brand">
-            <div className="brand-mark">OK</div>
-            <h1 className="title">Your link is ready</h1>
-            <p className="subtitle">Send it however feels natural. The link works for 3 days.</p>
+      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafaf9', padding: '2rem' }}>
+        <div style={{ maxWidth: 460, width: '100%', textAlign: 'center' }}>
+          <div className="logo-mark soft">OK</div>
+          <h1 style={{ fontSize: 24, fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>Your link is ready</h1>
+          <p style={{ color: '#666', marginBottom: '2rem', fontSize: 15 }}>Send this to them however feels natural - WhatsApp, Instagram, anywhere. The link works for 3 days.</p>
+
+          <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 12, padding: '1.25rem', marginBottom: '1rem' }}>
+            <div style={{ fontSize: 12, color: '#999', marginBottom: 6, textAlign: 'left' }}>Your link</div>
+            <div style={{ fontSize: 14, color: '#333', wordBreak: 'break-all', marginBottom: '1rem', textAlign: 'left' }}>{link}</div>
+            <button
+              onClick={copyLink}
+              style={{ width: '100%', padding: '12px', background: copied ? '#10b981' : '#111', color: '#fff', border: 'none', borderRadius: 8, fontSize: 15, fontWeight: 500, cursor: 'pointer', transition: 'background 0.2s' }}
+            >
+              {copied ? 'Copied!' : 'Copy link'}
+            </button>
           </div>
 
-          <section className="panel">
-            <div className="hint">Your link</div>
-            <div className="link-box">
-              <div className="link-text">{link}</div>
-              <button className="primary-button" onClick={copyLink}>
-                {copied ? 'Copied' : 'Copy link'}
-              </button>
-            </div>
+          <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 12, padding: '1.25rem', textAlign: 'left' }}>
+            <div style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>Your session code</div>
+            <div style={{ fontSize: 22, fontWeight: 600, color: '#111', letterSpacing: '0.02em' }}>{code}</div>
+            <div style={{ fontSize: 13, color: '#888', marginTop: 4 }}>You can also tell them the code and they can enter it at {appUrl}. It expires in 3 days.</div>
+          </div>
 
-            <div className="link-box">
-              <div className="hint">Session code</div>
-              <div className="code-text">{code}</div>
-              <p className="hint" style={{ marginTop: 8 }}>
-                They can also enter this code at {appUrl}. It expires in 3 days.
-              </p>
-            </div>
-          </section>
-
-          <p className="fine-print">We will email you at <strong>{form.email}</strong> when the quiz is done.</p>
+          <p style={{ fontSize: 13, color: '#aaa', marginTop: '1.5rem' }}>We'll email you at <strong>{form.email}</strong> the moment the quiz is done.</p>
         </div>
       </main>
     )
   }
 
   return (
-    <main className="app-shell">
-      <div className="stack">
-        <div className="brand">
-          <div className="brand-mark">CC</div>
-          <h1 className="title">Create a quiet signal</h1>
-          <p className="subtitle">Set up a short chat that helps you read the room before asking directly.</p>
+    <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafaf9', padding: '2rem' }}>
+      <div style={{ maxWidth: 460, width: '100%' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div className="logo-mark">CC</div>
+          <h1 style={{ fontSize: 26, fontWeight: 700, color: '#1a1a1a', marginBottom: 8 }}>CrushCode</h1>
+          <p style={{ color: '#666', fontSize: 15, lineHeight: 1.6 }}>Find out if they like you back - without the awkward part.</p>
         </div>
 
-        <form className="panel form-stack" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 16, padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label className="label">Your name</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#444', marginBottom: 6 }}>Your name</label>
             <input
-              className="input"
               required
               value={form.name}
               onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
               placeholder="What should they call you?"
+              style={{ width: '100%', padding: '10px 14px', border: '1px solid #e0e0e0', borderRadius: 8, fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
             />
           </div>
 
           <div>
-            <label className="label">A little context <span className="hint">(optional)</span></label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#444', marginBottom: 6 }}>A little about yourself <span style={{ color: '#aaa', fontWeight: 400 }}>(optional)</span></label>
             <textarea
-              className="textarea"
               value={form.description}
               onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-              placeholder="e.g. same class, same friend group, basketball together..."
+              placeholder="e.g. we're in the same class, we play basketball together..."
               rows={3}
+              style={{ width: '100%', padding: '10px 14px', border: '1px solid #e0e0e0', borderRadius: 8, fontSize: 15, resize: 'none', outline: 'none', boxSizing: 'border-box' }}
             />
-            <div className="hint" style={{ marginTop: 6 }}>This helps the AI make the chat feel natural.</div>
+            <div style={{ fontSize: 12, color: '#aaa', marginTop: 4 }}>This helps the AI make the conversation feel natural</div>
           </div>
 
           <div>
-            <label className="label">Your email</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#444', marginBottom: 6 }}>Your email</label>
             <input
-              className="input"
               required
               type="email"
               value={form.email}
               onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
               placeholder="For your private result notification"
+              style={{ width: '100%', padding: '10px 14px', border: '1px solid #e0e0e0', borderRadius: 8, fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
             />
           </div>
 
-          <button className="primary-button" type="submit" disabled={loading}>
-            {loading ? 'Creating your link...' : 'Generate my link'}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{ padding: '13px', background: '#111', color: '#fff', border: 'none', borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: 4 }}
+          >
+            {loading ? 'Creating your link...' : 'Generate my link ->'}
           </button>
         </form>
 
-        <p className="fine-print">They will never know it was you unless the conversation turns green.</p>
+        <p style={{ textAlign: 'center', fontSize: 12, color: '#bbb', marginTop: '1.25rem' }}>They'll never know it was you - unless they say yes.</p>
       </div>
     </main>
   )

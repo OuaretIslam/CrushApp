@@ -75,7 +75,7 @@ export default function SessionPage() {
         }
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Oops, something glitched. Try sending again.'
+      const message = err instanceof Error ? err.message : 'Oops, something glitched. Try sending again!'
       setMessages(prev => [...prev, { role: 'assistant', content: message }])
     }
     setLoading(false)
@@ -90,65 +90,78 @@ export default function SessionPage() {
 
   if (!started) {
     return (
-      <main className="app-shell">
-        <div className="stack">
-          <div className="brand">
-            <div className="brand-mark">?</div>
-            <h1 className="title">Someone made a vibe check for you</h1>
-            <p className="subtitle">A quick chat. No wrong answers, just answer honestly.</p>
-          </div>
-
-          <section className="panel">
-            {startError && (
-              <div className="link-box" style={{ marginTop: 0, marginBottom: 14 }}>
-                <div className="hint">{startError}</div>
-              </div>
-            )}
-            <button className="primary-button" onClick={startChat} disabled={loading}>
-              {loading ? 'Starting...' : 'Start the chat'}
-            </button>
-          </section>
-
-          <p className="fine-print">Takes about 5 minutes. This link expires 3 days after it was created.</p>
+      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafaf9', padding: '2rem' }}>
+        <div style={{ maxWidth: 400, width: '100%', textAlign: 'center' }}>
+          <div className="logo-mark soft">?</div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#1a1a1a', marginBottom: 10 }}>Someone made a vibe check for you</h1>
+          <p style={{ color: '#666', fontSize: 15, lineHeight: 1.6, marginBottom: '1rem' }}>It's a quick chat - just answer honestly. No wrong answers, promise.</p>
+          {startError && (
+            <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 12, padding: '1rem', color: '#666', fontSize: 14, lineHeight: 1.5, marginBottom: '1rem' }}>
+              {startError}
+            </div>
+          )}
+          <button
+            onClick={startChat}
+            disabled={loading}
+            style={{ padding: '14px 32px', background: '#111', color: '#fff', border: 'none', borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1 }}
+          >
+            {loading ? 'Starting...' : "Let's go ->"}
+          </button>
+          <p style={{ fontSize: 12, color: '#bbb', marginTop: '1rem' }}>Takes about 5 minutes. Links expire after 3 days.</p>
         </div>
       </main>
     )
   }
 
   return (
-    <main className="chat-shell">
-      <div className="chat-header">
-        <div className="chat-avatar">CC</div>
+    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#fafaf9' }}>
+      <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid #eee', background: '#fff', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="logo-mark small">CC</div>
         <div>
-          <div style={{ fontSize: 14, fontWeight: 750 }}>Vibe check</div>
-          <div className="hint">anonymous quiz</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: '#111' }}>Vibe check</div>
+          <div style={{ fontSize: 12, color: '#aaa' }}>anonymous quiz</div>
         </div>
       </div>
 
-      <div className="chat-feed">
+      <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
         {messages.map((msg, i) => (
-          <div className={`message-row ${msg.role === 'user' ? 'user' : ''}`} key={i}>
-            <div className={`bubble ${msg.role}`}>{msg.content}</div>
+          <div
+            key={i}
+            style={{
+              display: 'flex',
+              justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
+            }}
+          >
+            <div style={{
+              maxWidth: '78%',
+              padding: '10px 14px',
+              borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+              background: msg.role === 'user' ? '#111' : '#fff',
+              color: msg.role === 'user' ? '#fff' : '#1a1a1a',
+              fontSize: 15,
+              lineHeight: 1.5,
+              border: msg.role === 'assistant' ? '1px solid #eee' : 'none',
+            }}>
+              {msg.content}
+            </div>
           </div>
         ))}
 
         {loading && (
-          <div className="message-row">
-            <div className="typing">
-              <span />
-              <span />
-              <span />
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <div style={{ padding: '10px 16px', borderRadius: '18px 18px 18px 4px', background: '#fff', border: '1px solid #eee', display: 'flex', gap: 4, alignItems: 'center' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ccc', animation: 'pulse 1s infinite 0s' }} />
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ccc', animation: 'pulse 1s infinite 0.2s' }} />
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ccc', animation: 'pulse 1s infinite 0.4s' }} />
             </div>
           </div>
         )}
 
         {done && (
-          <div className="link-box" style={{ textAlign: 'center' }}>
-            <div className="hint">
-              {outcome === 'green'
-                ? 'Quiz done. You gave the honest answer, and that is the brave part.'
-                : 'All done. Thanks for taking the quiz.'}
-            </div>
+          <div style={{ textAlign: 'center', padding: '1.5rem 1rem', color: '#666', fontSize: 14 }}>
+            {outcome === 'green'
+              ? 'Quiz done! You were honest and that\'s all that matters.'
+              : 'All done! Thanks for taking the quiz.'}
           </div>
         )}
 
@@ -156,20 +169,26 @@ export default function SessionPage() {
       </div>
 
       {!done && (
-        <div className="chat-input-bar">
+        <div style={{ padding: '1rem 1.25rem', borderTop: '1px solid #eee', background: '#fff', display: 'flex', gap: 10 }}>
           <input
-            className="input"
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKey}
             placeholder="Type your answer..."
             disabled={loading}
+            style={{ flex: 1, padding: '11px 16px', border: '1px solid #e0e0e0', borderRadius: 24, fontSize: 15, outline: 'none', background: '#fafaf9' }}
           />
-          <button className="send-button" onClick={sendMessage} disabled={loading || !input.trim()}>
+          <button
+            onClick={sendMessage}
+            disabled={loading || !input.trim()}
+            style={{ width: 44, height: 44, borderRadius: '50%', background: '#111', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', opacity: loading || !input.trim() ? 0.4 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+          >
             ^
           </button>
         </div>
       )}
+
+      <style>{`@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }`}</style>
     </main>
   )
 }
