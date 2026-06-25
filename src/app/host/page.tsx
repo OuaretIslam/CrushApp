@@ -50,7 +50,7 @@ export default function HostPage() {
         <div style={{ maxWidth: 460, width: '100%', textAlign: 'center' }}>
           <div style={{ fontSize: 32, fontWeight: 700, marginBottom: '1rem' }}>Done</div>
           <h1 style={{ fontSize: 24, fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>Your link is ready</h1>
-          <p style={{ color: '#666', marginBottom: '2rem', fontSize: 15 }}>Send this to them however feels natural - WhatsApp, Instagram, anywhere. They'll just think it's a fun quiz.</p>
+          <p style={{ color: '#666', marginBottom: '2rem', fontSize: 15 }}>Send this to them however feels natural - WhatsApp, Instagram, anywhere. The link works for 3 days.</p>
 
           <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 12, padding: '1.25rem', marginBottom: '1rem' }}>
             <div style={{ fontSize: 12, color: '#999', marginBottom: 6, textAlign: 'left' }}>Your link</div>
@@ -66,7 +66,7 @@ export default function HostPage() {
           <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 12, padding: '1.25rem', textAlign: 'left' }}>
             <div style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>Your session code</div>
             <div style={{ fontSize: 22, fontWeight: 600, color: '#111', letterSpacing: '0.02em' }}>{code}</div>
-            <div style={{ fontSize: 13, color: '#888', marginTop: 4 }}>You can also tell them the code and they can enter it at {appUrl}</div>
+            <div style={{ fontSize: 13, color: '#888', marginTop: 4 }}>You can also tell them the code and they can enter it at {appUrl}. It expires in 3 days.</div>
           </div>
 
           <p style={{ fontSize: 13, color: '#aaa', marginTop: '1.5rem' }}>We'll email you at <strong>{form.email}</strong> the moment the quiz is done.</p>

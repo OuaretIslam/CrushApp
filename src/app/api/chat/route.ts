@@ -247,6 +247,13 @@ export async function POST(req: NextRequest) {
 
     if (!session) return NextResponse.json({ error: 'Session not found' }, { status: 404 })
 
+    if (session.expires_at && new Date(session.expires_at).getTime() < Date.now()) {
+      return NextResponse.json(
+        { error: 'This quiz link expired. Ask them to generate a new one.' },
+        { status: 410 }
+      )
+    }
+
     let conversation
     if (conversationId) {
       const { data } = await supabaseAdmin

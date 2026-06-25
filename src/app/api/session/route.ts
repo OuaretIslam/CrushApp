@@ -18,6 +18,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Name and email required' }, { status: 400 })
     }
 
+    await supabaseAdmin
+      .from('sessions')
+      .delete()
+      .lt('expires_at', new Date().toISOString())
+
     let code = generateCode()
     let attempts = 0
 
@@ -31,7 +36,13 @@ export async function POST(req: NextRequest) {
 
     const { data: session, error } = await supabaseAdmin
       .from('sessions')
-      .insert({ code, host_name: hostName, host_description: hostDescription, host_email: hostEmail })
+      .insert({
+        code,
+        host_name: hostName,
+        host_description: hostDescription,
+        host_email: hostEmail,
+        expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+      })
       .select()
       .single()
 

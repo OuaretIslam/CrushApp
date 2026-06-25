@@ -6,7 +6,8 @@ create table sessions (
   host_name text not null,
   host_description text,               -- a few words the host wrote about themselves
   host_email text not null,            -- where we send the notification
-  created_at timestamp default now()
+  created_at timestamp default now(),
+  expires_at timestamp default now() + interval '3 days'
 );
 
 create table conversations (
