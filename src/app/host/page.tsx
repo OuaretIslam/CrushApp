@@ -8,7 +8,9 @@ export default function HostPage() {
   const [copied, setCopied] = useState(false)
   const [form, setForm] = useState({ name: '', description: '', email: '' })
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || ''
+  const appUrl = typeof window !== 'undefined'
+    ? window.location.origin
+    : process.env.NEXT_PUBLIC_APP_URL || ''
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
