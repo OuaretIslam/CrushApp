@@ -33,7 +33,11 @@ async function sendEmail(to: string, subject: string, html: string) {
   })
   if (!res.ok) {
     const err = await res.text()
-    console.error('Brevo error:', err)
+    console.error('[Brevo] Email failed:', { to, subject, status: res.status, err })
+    // Don't throw — we don't want email failure to kill the whole response
+    // But you'll now see it clearly in Vercel logs
+  } else {
+    console.log('[Brevo] Email sent to', to)
   }
 }
 
@@ -285,8 +289,8 @@ export async function POST(req: NextRequest) {
     )
 
     const cleanReply = cleanMessage(rawReply)
-    const outcome = isFinalQuestion(cleanReply) ? null : parseOutcome(rawReply)
-    const storedReply = outcome ? rawReply : cleanReply
+    const outcome = parseOutcome(rawReply)
+    const storedReply = cleanReply
 
     messages.push({ role: 'assistant', content: storedReply })
 

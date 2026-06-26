@@ -64,17 +64,26 @@ For a green outcome, do not end with an empty or generic message. Reveal the mea
 }
 
 export function parseOutcome(message: string): { score: number; outcome: string } | null {
-  const scoreMatch = message.match(/\[SCORE:(\d+)\]/)
-  const outcomeMatch = message.match(/\[OUTCOME:(green|friend)\]/)
+  // Match with or without brackets: [SCORE:85] or SCORE:85
+  const scoreMatch = message.match(/\[?SCORE:(\d+)\]?/)
+  const outcomeMatch = message.match(/\[?OUTCOME:(green|friend)\]?/)
   if (scoreMatch && outcomeMatch) {
     return {
       score: parseInt(scoreMatch[1]),
       outcome: outcomeMatch[1],
     }
   }
+  // Fallback: infer outcome from score alone if OUTCOME tag is missing
+  if (scoreMatch) {
+    const score = parseInt(scoreMatch[1])
+    return { score, outcome: score >= 70 ? 'green' : 'friend' }
+  }
   return null
 }
 
 export function cleanMessage(message: string): string {
-  return message.replace(/\[SCORE:\d+\]/g, '').replace(/\[OUTCOME:(green|friend)\]/g, '').trim()
+  return message
+    .replace(/\[?SCORE:\d+\]?/g, '')
+    .replace(/\[?OUTCOME:(green|friend)\]?/g, '')
+    .trim()
 }
