@@ -31,7 +31,7 @@ export default function HostPage() {
         setStep('done')
       }
     } catch {
-      alert('Something went wrong, try again')
+      alert('Something went wong, try again')
     }
     setLoading(false)
   }
